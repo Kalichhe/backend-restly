@@ -23,9 +23,13 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { ReviewsService } from './reviews/reviews.service';
 import { ReviewsController } from './reviews/reviews.controller';
 
+import { UsersModule } from './users/users.module';
+import { UsersService } from './users/users.service';
+import { UsersController } from './users/users.controller';
+
 @Module({
-  imports: [AuthModule, BookingsModule, ExploreModule, ProfileModule, PropertiesModule, ReviewsModule],
-  providers: [AuthService, ProfileService, PropertiesService, ExploreService, BookingsService, ReviewsService],
-  controllers: [AuthController, ProfileController, PropertiesController, ExploreController, BookingsController, ReviewsController],
+  imports: [AuthModule, BookingsModule, ExploreModule, ProfileModule, PropertiesModule, ReviewsModule, UsersModule],
+  providers: [AuthService, ProfileService, PropertiesService, ExploreService, BookingsService, ReviewsService, UsersService],
+  controllers: [AuthController, ProfileController, PropertiesController, ExploreController, BookingsController, ReviewsController, UsersController],
 })
 export class AppModule {}

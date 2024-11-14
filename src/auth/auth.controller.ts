@@ -4,11 +4,16 @@ import { AuthService } from './auth.service';
 @Controller('auth')
 export class AuthController {
 
-    constructor(authService: AuthService){}
+    constructor(private authService: AuthService){}
 
-    @Get('/get/all')
+    // Todas las rutas de los controladores
+
+    // Ruta para obtener todos los usuarios
+    // @Get('/get/all')
+    @Get()
     getAllUsers() {
-
+        return this.authService.getUsers();
     }
+
 
 }
