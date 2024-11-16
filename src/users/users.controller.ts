@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -32,7 +33,8 @@ export class UsersController {
   // @Post('/create/user')
   @Post()
   createUser(@Body() user: CreateUserDto) {
-    return this.usersService.createUser(user);
+    this.usersService.createUser(user)
+    return this.newUser();
   }
 
   // @Put('/update/user')
@@ -47,5 +49,23 @@ export class UsersController {
   @Delete('/:id')
   deleteUser(@Param('id') id: string) {
     return this.usersService.deleteUser(parseInt(id));
+  }
+
+  @Get('new')
+  @HttpCode(201)
+  newUser(){
+    return 'Something new';
+  }
+
+  @Get('notfound')
+  @HttpCode(404)
+  notFoundPage(){
+    return '404 Not Found';
+  }
+
+  @Get('error')
+  @HttpCode(500)
+  errorPage(){
+    return '500 Internal Server Error';
   }
 }
