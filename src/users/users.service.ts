@@ -1,6 +1,7 @@
 import { Injectable, HttpCode, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 export interface User {
   username: string;
@@ -28,8 +29,20 @@ export class UsersService {
     }
   }
 
+  // Obtenemos un usuario por ID
   getUser(id: number) {
     const userFount = this.users.find((user) => user.id === id);
+
+    if (!userFount) {
+      return new NotFoundException('User not found');
+    } else {
+      return userFount;
+    }
+  }
+
+  // Obtenemos un usuario por username
+  getUserByUsername(username: string) {
+    const userFount = this.users.find((user) => user.username === username);
 
     if (!userFount) {
       return new NotFoundException('User not found');
@@ -72,5 +85,19 @@ export class UsersService {
       this.users.splice(index, 1);
     }
     return user;
+  }
+
+  // Login Usuario
+  login(LoginUserDto: LoginUserDto) {
+    if (LoginUserDto.username === undefined || LoginUserDto.password === undefined) {
+      return new NotFoundException('User not found');
+    } else {
+      const user = this.users.find((user) => user.username === LoginUserDto.username && user.password === LoginUserDto.password);
+      if (user) {
+        return "Welcome " + user.username;
+      } else {
+        return new NotFoundException('User not found');
+      }
+    }
   }
 }

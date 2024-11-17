@@ -5,13 +5,15 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseIntPipe,
+  Patch,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('/user')
 export class UsersController {
@@ -19,15 +21,14 @@ export class UsersController {
 
   // @Get('/get/all')
   @Get()
-  getUsers(@Query() query: any) {
-    console.log(query);
-
+  getUsers() {
     return this.usersService.getUsers();
   }
 
+  // @Get('/get/user/:id')
   @Get('/:id')
-  getUser(@Param('id') id: string) {
-    return this.usersService.getUser(parseInt(id));
+  getUser(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.getUser(id);
   }
 
   // @Post('/create/user')
@@ -37,24 +38,29 @@ export class UsersController {
     return this.newUser();
   }
 
-  // @Put('/update/user')
-  @Put('/:id')
-  updateUser(@Param('id') id: string, @Body() user: UpdateUserDto) {
-    console.log(user);
+  // @Post('/login)
+  @Post('/login')
+  login(@Body() LoginUserDto: LoginUserDto) {
+    return this.usersService.login(LoginUserDto);
+  }
 
-    return this.usersService.updateUser(parseInt(id), user);
+  // @Patch('/update/user')
+  @Patch('/:id')
+  updateUser(@Param('id', ParseIntPipe) id: number, @Body() user: UpdateUserDto) {
+    return this.usersService.updateUser(id, user);
   }
 
   // @Delete('/delete/user')
   @Delete('/:id')
-  deleteUser(@Param('id') id: string) {
-    return this.usersService.deleteUser(parseInt(id));
+  deleteUser(@Param('id', ParseIntPipe) id: number) {
+    this.usersService.deleteUser(id);
+    return this.deleteInformationUser();
   }
 
   @Get('new')
   @HttpCode(201)
   newUser(){
-    return 'Something new';
+    return 'New user created successfully';
   }
 
   @Get('notfound')
@@ -67,5 +73,11 @@ export class UsersController {
   @HttpCode(500)
   errorPage(){
     return '500 Internal Server Error';
+  }
+
+  @Get('delete')
+  @HttpCode(204)
+  deleteInformationUser(){
+    return 'There is no user information\n 204 No Content';
   }
 }
