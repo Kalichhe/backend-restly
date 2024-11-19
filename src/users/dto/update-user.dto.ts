@@ -28,5 +28,5 @@ export class UpdateUserDto {
 
   @IsBoolean()
   @IsOptional()
-  is_owner?: boolean;
+  is_owner?: string;
 }

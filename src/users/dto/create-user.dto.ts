@@ -29,5 +29,5 @@ export class CreateUserDto {
 
   @IsBoolean()
   @IsNotEmpty()
-  is_owner: boolean;
+  is_owner: string;
 }
