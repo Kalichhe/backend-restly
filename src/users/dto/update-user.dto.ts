@@ -1,4 +1,4 @@
-import { IsEmail, IsString, IsBoolean, MinLength, MaxLength, IsOptional, Matches } from 'class-validator';
+import { IsEmail, IsString, IsBoolean, MinLength, MaxLength, IsOptional, Matches, IsNotEmpty } from 'class-validator';
 
 export class UpdateUserDto {
   @IsString()
@@ -18,6 +18,13 @@ export class UpdateUserDto {
   @MinLength(12)
   @MaxLength(20)
   password?: string;
+
+  @IsString()
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/, { message: 'Password must contain uppercase and lowercase letters, numbers, and special characters' })
+  @IsNotEmpty()
+  @MinLength(12)
+  @MaxLength(20)
+  repeat_password: string;
 
   @IsBoolean()
   @IsOptional()

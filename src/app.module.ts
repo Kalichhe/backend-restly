@@ -3,10 +3,6 @@ import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 
-import { ProfileModule } from './profile/profile.module';
-import { ProfileService } from './profile/profile.service';
-import { ProfileController } from './profile/profile.controller';
-
 import { PropertiesModule } from './properties/properties.module';
 import { PropertiesService } from './properties/properties.service';
 import { PropertiesController } from './properties/properties.controller';
@@ -28,8 +24,8 @@ import { UsersService } from './users/users.service';
 import { UsersController } from './users/users.controller';
 
 @Module({
-  imports: [AuthModule, BookingsModule, ExploreModule, ProfileModule, PropertiesModule, ReviewsModule, UsersModule],
-  providers: [AuthService, ProfileService, PropertiesService, ExploreService, BookingsService, ReviewsService, UsersService],
-  controllers: [AuthController, ProfileController, PropertiesController, ExploreController, BookingsController, ReviewsController, UsersController],
+  imports: [AuthModule, BookingsModule, ExploreModule, PropertiesModule, ReviewsModule, UsersModule],
+  providers: [AuthService, PropertiesService, ExploreService, BookingsService, ReviewsService, UsersService],
+  controllers: [AuthController, PropertiesController, ExploreController, BookingsController, ReviewsController, UsersController],
 })
 export class AppModule {}
